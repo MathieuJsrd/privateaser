@@ -162,6 +162,13 @@ console.log(actors);
 //If <20 persons => discount of 30%
 //If <60 persons => discount of 50%
 
+//STEP 3
+//We have to pay the bar : 70% of the booking price
+//30% of the booking price returns to a commission pot
+//50% of the commission returns to insurance
+//1€ per person to the treasury
+//the rest to privateaser
+
 for(var i = 0; i < events.length; i++)
 {
   for(var j = 0; j < bars.length; j++)
@@ -186,6 +193,14 @@ for(var i = 0; i < events.length; i++)
       }
       console.log("Price : "+ price_event + " for :");
       console.log(events[i]);
+	  //Step 3
+	  var commission_pot = 0.3 * price_event;
+	  events[i].commission.insurance = 0.5 * commission_pot;
+	  events[i].commission.treasury = events[i].persons;
+	  events[i].commission.privateaser = (0.5 * commission_pot) - events[i].persons;
+	  console.log("Insurance : " + events[i].commission.insurance);
+	  console.log("Treasury : " + events[i].commission.treasury);
+	  console.log("Privateaser : " + events[i].commission.privateaser);
     }
   }
 }
