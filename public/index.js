@@ -150,11 +150,18 @@ console.log(bars);
 console.log(events);
 console.log(actors);
 
+//STEP 1
 //The event final price is: time + people
 //Time = event.time * bar.pricePerHour
 //People = event.nbpeople * bar.priceperperson
 
 //Every bar doesn't have a booking with every event, so we need to control that
+
+//STEP 2
+//If <10 persons => discount of 10%
+//If <20 persons => discount of 30%
+//If <60 persons => discount of 50%
+
 for(var i = 0; i < events.length; i++)
 {
   for(var j = 0; j < bars.length; j++)
@@ -164,7 +171,21 @@ for(var i = 0; i < events.length; i++)
     {
       //Here, we need to calculate the event cost with the above formula
       var price_event = events[i].time * bars[j].pricePerHour + events[i].persons * bars[j].pricePerPerson;
-      console.log(price_event);
+      //Step 2
+      if(events[i].persons >= 10)
+      {
+        price_event = price_event - 0.1 * price_event;
+      }
+      if(events[i].persons >= 20)
+      {
+        price_event = price_event - 0.3 * price_event;
+      }
+      if(events[i].persons >= 60)
+      {
+        price_event = price_event - 0.5 * price_event;
+      }
+      console.log("Price : "+ price_event + " for :");
+      console.log(events[i]);
     }
   }
 }
