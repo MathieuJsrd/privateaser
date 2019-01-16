@@ -149,3 +149,24 @@ const actors = [{
 console.log(bars);
 console.log(events);
 console.log(actors);
+
+//The event final price is: time + people
+//Time = event.time * bar.pricePerHour
+//People = event.nbpeople * bar.priceperperson
+
+//Every bar doesn't have a booking with every event, so we need to control that
+for(var i = 0; i < events.length; i++)
+{
+  for(var j = 0; j < bars.length; j++)
+  {
+    //If the bar and the event has a booking in common, we come into
+    if(events[i].barId == bars[j].id)
+    {
+      //Here, we need to calculate the event cost with the above formula
+      var price_event = events[i].time * bars[j].pricePerHour + events[i].persons * bars[j].pricePerPerson;
+      console.log(price_event);
+    }
+  }
+}
+
+
