@@ -169,6 +169,8 @@ console.log(actors);
 //1€ per person to the treasury
 //the rest to privateaser
 
+//STEP 4
+//
 for(var i = 0; i < events.length; i++)
 {
   for(var j = 0; j < bars.length; j++)
@@ -191,8 +193,17 @@ for(var i = 0; i < events.length; i++)
       {
         price_event = price_event - 0.5 * price_event;
       }
+	  //Step4
+	  //If deductible option == true
+	  //
+	  if (events[i].options.deductibleReduction == true)
+      {
+		price_event = price_event + events[i].persons;
+      }
+	  events[i].price = price_event;
       console.log("Price : "+ price_event + " for :");
       console.log(events[i]);
+
 	  //Step 3
 	  var commission_pot = 0.3 * price_event;
 	  events[i].commission.insurance = 0.5 * commission_pot;
@@ -204,5 +215,22 @@ for(var i = 0; i < events.length; i++)
     }
   }
 }
+//Step5
+actors.forEach(actor => {
+events.forEach(event =>{
+  if(actor.eventId == event.id)
+  {
+    actor.payment[0].amount = event.price;
+    actor.payment[1].amount = event.price - (event.price * 0.3);
+    actor.payment[2].amount = event.commission.insurance;
+    actor.payment[3].amount = event.persons;
+    actor.payment[4].amount = event.commission.privateaser;
+  }
+})
+})
+
+console.log(events);
+console.log(actors);
+
 
 
